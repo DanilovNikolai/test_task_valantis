@@ -1,0 +1,31 @@
+.root {
+  background-color: #f8f8f8;
+}
+
+.container {
+  border-bottom: 1px solid rgba(200, 200, 200, 0.5);
+  margin: 0 auto;
+  padding: 0px 10px;
+  height: 70px;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .tel_container {
+    cursor: pointer;
+  }
+
+  .logo_container {
+    cursor: pointer;
+  }
+
+  .icons_container {
+    display: flex;
+
+    a {
+      cursor: pointer;
+      margin-left: 20px;
+    }
+  }
+}
