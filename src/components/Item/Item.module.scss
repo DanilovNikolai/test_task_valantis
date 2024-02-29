@@ -1,0 +1,43 @@
+.root {
+  flex: 25%;
+  background-color: #f8f8f8;
+  margin: 20px;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.1);
+  @media (max-width: 1500px) {
+    padding: 10px 20px;
+  }
+}
+
+.item_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  div {
+    margin: 5px 0px;
+  }
+}
+
+.item_image {
+  width: 40%;
+  margin-bottom: 10px;
+}
+
+.item_price {
+  color: rgb(167, 70, 70);
+}
+
+.item_id {
+  font-size: 14px;
+}
+
+.item_title {
+  text-align: center;
+  margin-bottom: 20px;
+  @media (max-width: 1500px) {
+    font-size: 18px;
+  }
+}

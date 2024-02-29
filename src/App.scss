@@ -1,0 +1,26 @@
+body {
+  background-color: #fff;
+}
+
+.wrapper {
+  width: 70%;
+  height: 100%;
+  margin: 50px auto;
+  border-radius: 10px;
+  max-width: 1400px;
+  @media (max-width: 500px) {
+    margin: 15px auto;
+    width: calc(100vw - 40px);
+  }
+}
+
+.content {
+  margin: 0 auto;
+  padding: 10px 20px;
+  @media (max-width: 700px) {
+    padding: 5px 10px;
+  }
+  @media (max-width: 500px) {
+    padding: 3px 5px;
+  }
+}
