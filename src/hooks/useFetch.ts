@@ -1,18 +1,20 @@
 import { useState } from "react";
 
-interface BodyParams {
-  [key: string]: any;
-}
+export type Action = "get_ids" | "get_items" | "get_fields" | "filter";
 
-interface Body {
-  action: string;
-  params: BodyParams;
+export interface BodyParams {
+  [key: string]: any;
 }
 
 export default function useFetch() {
   const [loading, setLoading] = useState(true);
 
-  function post(url: string, xAuth: string, body: Body) {
+  function post(
+    url: string,
+    xAuth: string,
+    action: Action,
+    params?: BodyParams
+  ) {
     return new Promise((resolve, reject) => {
       fetch(url, {
         method: "POST",
@@ -20,7 +22,10 @@ export default function useFetch() {
           "Content-Type": "application/json",
           "X-Auth": xAuth,
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          action: action,
+          params: params,
+        }),
       })
         .then((response) => {
           if (!response.ok) {
