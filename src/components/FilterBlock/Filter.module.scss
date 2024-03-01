@@ -1,18 +1,84 @@
 .root {
-  height: 40px;
+  height: 60px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   background-color: #f8f8f8;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .container {
   width: 70%;
   margin: 0 auto;
-  padding: 0px 10px;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter_form {
+  display: flex;
   align-items: center;
 }
 
+.filter_select,
+.filter_input {
+  height: 100%;
+  padding: 4px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-right: 10px;
+  transition: border-color 0.3s ease;
+  appearance: none; /* Удаление стандартного стрелочного указателя */
+}
 
+.filter_select:focus,
+.filter_input:focus {
+  outline: none;
+  border-color: #4e9af1;
+}
+
+.filter_select option {
+  cursor: pointer;
+  background-color: #fff; /* Цвет фона */
+  padding: 8px 12px; /* Внутренний отступ */
+  transition: background-color 0.3s ease; /* Плавное изменение цвета фона при наведении */
+}
+
+.filter_select option:hover {
+  background-color: #4e9af1; /* Цвет фона при наведении */
+}
+
+.filter_select:focus {
+  outline: none;
+  border-color: #4e9af1;
+}
+
+.filter_button {
+  height: 100%;
+  padding: 4px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4e9af1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  span {
+    color: #fff;
+  }
+}
+
+.filter_button:hover {
+  background-color: #357dbf;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+}
