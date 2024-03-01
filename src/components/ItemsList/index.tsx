@@ -4,7 +4,7 @@ import { ItemProps } from "../../App";
 import Loader from "../Loader";
 
 export interface ItemsListProps {
-  items: ItemProps[];
+  items: ItemProps[] | null;
   loading: boolean;
 }
 
@@ -18,10 +18,10 @@ const ItemsList: React.FC<ItemsListProps> = ({ items, loading }) => {
         </div>
       ) : (
         <div className={styles.container}>
-          {items.length ? (
-            items.map((item: ItemProps) => (
+          {items?.length ? (
+            items.map((item: ItemProps, index) => (
               <Item
-                key={item.id}
+                key={index}
                 brand={item.brand}
                 id={item.id}
                 price={item.price}
