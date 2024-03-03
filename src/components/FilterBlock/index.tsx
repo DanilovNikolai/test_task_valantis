@@ -1,4 +1,4 @@
-import styles from "./Filter.module.scss";
+import styles from "./FilterBlock.module.scss";
 import { useState } from "react";
 import { Action } from "../../hooks/useFetch";
 import { BodyParams } from "../../hooks/useFetch";
@@ -20,7 +20,6 @@ const FilterBlock: React.FC<FilterBlockProps> = ({
   url,
   xAuth,
   post,
-  loading,
   setItems,
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -69,7 +68,11 @@ const FilterBlock: React.FC<FilterBlockProps> = ({
             onChange={(e) => setInputValue(e.target.value)}
             className={styles.filter_input}
           />
-          <button onClick={handleFilterButton} type="submit" className={styles.filter_button}>
+          <button
+            onClick={handleFilterButton}
+            type="submit"
+            className={styles.filter_button}
+          >
             <span>Поиск</span>
           </button>
         </form>
