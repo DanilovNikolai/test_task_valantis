@@ -13,27 +13,29 @@ const Header = () => {
           <a href="tel:+79851349294">+7 (985) 134 92 94</a>
         </div>
         <div className={styles.logo_container}>
-          <img src={logo} alt="valantis-logo" />
+          <a href="/">
+            <img src={logo} alt="valantis-logo" />
+          </a>
         </div>
         <div className={styles.icons_container}>
           <div>
             <a>
-              <img src={searchIcon} alt="valantis-logo" />
+              <img src={searchIcon} alt="search-icon" />
             </a>
           </div>
           <div>
             <a>
-              <img src={accountIcon} alt="valantis-logo" />
+              <img src={accountIcon} alt="account-icon" />
             </a>
           </div>
           <div>
             <a>
-              <img src={bookmarkIcon} alt="valantis-logo" />
+              <img src={bookmarkIcon} alt="bookmark-icon" />
             </a>
           </div>
           <div>
             <a>
-              <img src={cartIcon} alt="valantis-logo" />
+              <img src={cartIcon} alt="cart-icon" />
             </a>
           </div>
         </div>
