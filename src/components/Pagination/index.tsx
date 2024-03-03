@@ -1,22 +1,26 @@
-import styles from "./Pagination.module.scss"
+import styles from "./Pagination.module.scss";
 
 interface PaginationProps {
   currentPage: number;
-  totalPages: number;
   onPageChange: (page: number) => void;
+  onLoadNextItems: () => void;
+  onLoadPrevItems: () => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
-  totalPages,
   onPageChange,
+  onLoadNextItems,
+  onLoadPrevItems,
 }) => {
   const loadNextPage = () => {
     onPageChange(currentPage + 1);
+    onLoadNextItems();
   };
 
   const loadPrevPage = () => {
     onPageChange(currentPage - 1);
+    onLoadPrevItems();
   };
 
   return (
@@ -25,9 +29,7 @@ const Pagination: React.FC<PaginationProps> = ({
         Назад
       </button>
       <div>{currentPage}</div>
-      <button onClick={loadNextPage} disabled={currentPage === totalPages}>
-        Вперед
-      </button>
+      <button onClick={loadNextPage}>Вперед</button>
     </div>
   );
 };
