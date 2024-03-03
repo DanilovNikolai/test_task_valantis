@@ -30,7 +30,7 @@
   font-size: 16px;
   margin-right: 10px;
   transition: border-color 0.3s ease;
-  appearance: none; /* Удаление стандартного стрелочного указателя */
+  appearance: none;
 }
 
 .filter_select:focus,
@@ -41,9 +41,9 @@
 
 .filter_select option {
   cursor: pointer;
-  background-color: #fff; /* Цвет фона */
-  padding: 8px 12px; /* Внутренний отступ */
-  transition: background-color 0.3s ease; /* Плавное изменение цвета фона при наведении */
+  background-color: #fff;
+  padding: 8px 12px;
+  transition: background-color 0.3s ease;
 }
 
 .filter_select option:hover {
@@ -56,7 +56,6 @@
 }
 
 .filter_button {
-  height: 100%;
   padding: 4px 15px;
   border: none;
   border-radius: 5px;
@@ -75,10 +74,4 @@
 
 .filter_button:hover {
   background-color: #357dbf;
-}
-
-@media (max-width: 768px) {
-  .container {
-    width: 90%;
-  }
 }
