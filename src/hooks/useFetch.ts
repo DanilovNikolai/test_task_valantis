@@ -6,17 +6,23 @@ export interface BodyParams {
   [key: string]: any;
 }
 
+export interface FetchResult {
+  [key: string]: any;
+}
+
 export default function useFetch() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   function post(
     url: string,
     xAuth: string,
     action: Action,
     params?: BodyParams
-  ) {
-    return new Promise((resolve, reject) => {
-      fetch(url, {
+  ): Promise<FetchResult> {
+    setLoading(true);
+
+    const request = async () => {
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,25 +32,26 @@ export default function useFetch() {
           action: action,
           params: params,
         }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          if (!data) {
-            throw new Error(`Error! No data to fetch`);
-          }
-          resolve(data.result);
-        })
-        .catch((error) => {
-          reject(error);
-          throw new Error(error);
-        })
-        .finally(() => setLoading(false));
-    });
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return await response.json();
+    };
+
+    const handleRequest = async (): Promise<FetchResult> => {
+      try {
+        const data = await request();
+        setLoading(false);
+        return data.result;
+      } catch (error) {
+        console.error("Error occurred:", error);
+        console.log('Отправляем повторный запрос на сервер...');
+        return await handleRequest();
+      }
+    };
+
+    return handleRequest();
   }
 
   return { post, loading };
