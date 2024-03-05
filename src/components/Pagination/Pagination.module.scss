@@ -2,7 +2,7 @@
   position: fixed;
   top: 50%;
   z-index: 9999;
-  right: 20px;
+  right: 50px;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
@@ -10,8 +10,18 @@
   z-index: 1000;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   padding: 16px;
+  @media (max-width: 1200px) {
+    right: 20px;
+  }
+  @media (max-width: 900px) {
+    right: 10px;
+    padding: 8px;
+  }
+  @media (max-width: 600px) {
+    padding: 8px 5px;
+  }
 
   button {
     background-color: #4e9af1;
@@ -22,6 +32,12 @@
     margin-top: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    @media (max-width: 900px) {
+      padding: 4px 8px;
+    }
+    @media (max-width: 600px) {
+      padding: 5px 7px;
+    }
   }
 
   button:hover {
@@ -32,4 +48,8 @@
     background-color: #ccc;
     cursor: not-allowed;
   }
+}
+
+.currentPage {
+  margin: 5px 0px;
 }
