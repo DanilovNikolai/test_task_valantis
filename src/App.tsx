@@ -15,8 +15,6 @@ import FilterBlock from "./components/FilterBlock";
 import Pagination from "./components/Pagination";
 // icons
 import not_found from "./assets/not_found.png";
-// react-router-dom
-import { Link } from "react-router-dom";
 
 export interface ItemProps {
   brand: string | null;
@@ -31,10 +29,7 @@ function App() {
   const url = import.meta.env.VITE_VALANTIS_API_URL;
 
   const { post, loading } = useFetch();
-  const [items, setItems] = useState<ItemProps[] | null>(() => {
-    const storedItems = localStorage.getItem("items");
-    return storedItems ? JSON.parse(storedItems) : null;
-  });
+  const [items, setItems] = useState<ItemProps[] | null>(null);
   const storedPage = localStorage.getItem("currentPage");
   const initialPage = storedPage ? parseInt(storedPage, 10) : 1;
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
@@ -62,6 +57,7 @@ function App() {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+    console.log(items);
   };
 
   useEffect(() => {
@@ -116,9 +112,9 @@ function App() {
             <div>
               <img src={not_found} alt="" />
             </div>
-            <div>
-              <Link to="/">Вернуться назад</Link>
-            </div>
+            <button onClick={() => loadPage(currentPage)}>
+              <span>Вернуться назад</span>
+            </button>
           </div>
         ) : (
           <ItemsList items={items} loading={loading} />
