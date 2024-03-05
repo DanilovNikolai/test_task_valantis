@@ -28,7 +28,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <button onClick={loadPrevPage} disabled={currentPage === 1}>
         Назад
       </button>
-      <div>{currentPage}</div>
+      <div className={styles.currentPage}>{currentPage}</div>
       <button onClick={loadNextPage}>Вперед</button>
     </div>
   );
