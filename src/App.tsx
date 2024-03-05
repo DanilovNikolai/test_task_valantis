@@ -115,7 +115,7 @@ function App() {
               <img src={not_found} alt="" />
             </div>
             <div>
-              <a href="/">Вернуться назад</a>
+              <a href={process.env.PUBLIC_URL}>Вернуться назад</a>
             </div>
           </div>
         ) : (

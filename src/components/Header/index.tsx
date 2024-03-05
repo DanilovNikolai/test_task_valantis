@@ -13,7 +13,7 @@ const Header = () => {
           <a href="tel:+79851349294">+7 (985) 134 92 94</a>
         </div>
         <div className={styles.logo_container}>
-          <a href="/">
+          <a href={process.env.PUBLIC_URL}>
             <img src={logo} alt="valantis-logo" />
           </a>
         </div>
