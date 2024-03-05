@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
+// styles
 import "./App.scss";
+// utils
 import getLocalDate from "./utils/getLocalDate.ts";
-import { md5 } from "js-md5";
-import useFetch from "./hooks/useFetch.ts";
-
 import filterUniqueItems from "./utils/filterUniqueItems.ts";
+// md5 library
+import { md5 } from "js-md5";
+// custom hook
+import useFetch from "./hooks/useFetch.ts";
+// components
 import Header from "./components/Header";
 import ItemsList from "./components/ItemsList";
 import FilterBlock from "./components/FilterBlock";
 import Pagination from "./components/Pagination";
+// icons
+import not_found from "./assets/not_found.png";
 
 export interface ItemProps {
   brand: string | null;
@@ -21,12 +27,16 @@ function App() {
   const currentDate = getLocalDate();
   const xAuth = md5(import.meta.env.VITE_VALANTIS_API_KEY + "_" + currentDate);
   const url = import.meta.env.VITE_VALANTIS_API_URL;
+
   const { post, loading } = useFetch();
   const [items, setItems] = useState<ItemProps[] | null>(() => {
     const storedItems = localStorage.getItem("items");
     return storedItems ? JSON.parse(storedItems) : null;
   });
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const storedPage = localStorage.getItem("currentPage");
+  const initialPage = storedPage ? parseInt(storedPage, 10) : 1;
+  const [currentPage, setCurrentPage] = useState<number>(initialPage);
+  const [error, setError] = useState<string>("");
 
   const fetchItems = async (page: number) => {
     const data = await post(url, xAuth, "get_ids", {
@@ -43,9 +53,10 @@ function App() {
   const loadPage = async (page: number) => {
     try {
       const itemsData = await fetchItems(page);
-      const uniqueItems = filterUniqueItems(itemsData);
+      const uniqueItems = filterUniqueItems(itemsData); // убираем дубли
       setItems(uniqueItems);
       setCurrentPage(page);
+      localStorage.setItem("currentPage", String(page));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -54,14 +65,13 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        //@ts-ignore
         const data = await post(url, xAuth, "get_ids", {
           offset: 0,
           limit: 50,
         });
-        const itemsData = data as string[];
-        console.log(itemsData);
 
-        await loadPage(currentPage);
+        loadPage(currentPage);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -79,10 +89,6 @@ function App() {
     loadPage(prevPage);
   };
 
-  useEffect(() => {
-    localStorage.setItem("items", JSON.stringify(items));
-  }, [items]);
-
   return (
     <>
       <Header />
@@ -92,15 +98,29 @@ function App() {
         post={post}
         loading={loading}
         setItems={setItems}
+        setError={setError}
       />
       <Pagination
         currentPage={currentPage}
         onPageChange={loadPage}
         onLoadNextItems={loadNextPage}
         onLoadPrevItems={loadPrevPage}
+        error={error}
       />
       <div className="wrapper">
-        <ItemsList items={items} loading={loading} />
+        {error ? (
+          <div className="error-message">
+            <div className="error-title">{error}</div>
+            <div>
+              <img src={not_found} alt="" />
+            </div>
+            <div>
+              <a href="/">Вернуться назад</a>
+            </div>
+          </div>
+        ) : (
+          <ItemsList items={items} loading={loading} />
+        )}
       </div>
     </>
   );

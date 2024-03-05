@@ -1,5 +1,8 @@
+// styles
 import styles from "./Item.module.scss";
+// types
 import { ItemProps } from "../../App";
+// icons
 import images from "./images";
 
 const Item: React.FC<ItemProps> = ({ brand, id, price, product }) => {
