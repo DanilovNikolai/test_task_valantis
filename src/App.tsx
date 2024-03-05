@@ -15,6 +15,8 @@ import FilterBlock from "./components/FilterBlock";
 import Pagination from "./components/Pagination";
 // icons
 import not_found from "./assets/not_found.png";
+// react-router-dom
+import { Link } from "react-router-dom";
 
 export interface ItemProps {
   brand: string | null;
@@ -115,7 +117,7 @@ function App() {
               <img src={not_found} alt="" />
             </div>
             <div>
-              <a href={process.env.PUBLIC_URL}>Вернуться назад</a>
+              <Link to="/">Вернуться назад</Link>
             </div>
           </div>
         ) : (

@@ -4,6 +4,7 @@ import searchIcon from "../../assets/header_search.svg";
 import cartIcon from "../../assets/header_cart.svg";
 import bookmarkIcon from "../../assets/header_bookmark.svg";
 import accountIcon from "../../assets/header_account.svg";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -13,9 +14,9 @@ const Header = () => {
           <a href="tel:+79851349294">+7 (985) 134 92 94</a>
         </div>
         <div className={styles.logo_container}>
-          <a href={process.env.PUBLIC_URL}>
+          <Link to="/">
             <img src={logo} alt="valantis-logo" />
-          </a>
+          </Link>
         </div>
         <div className={styles.icons_container}>
           <div>
