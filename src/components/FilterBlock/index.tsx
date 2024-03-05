@@ -1,5 +1,7 @@
+import React, { useState } from "react";
+// styles
 import styles from "./FilterBlock.module.scss";
-import { useState } from "react";
+// types
 import { Action } from "../../hooks/useFetch";
 import { BodyParams } from "../../hooks/useFetch";
 
@@ -14,6 +16,7 @@ interface FilterBlockProps {
   ) => Promise<any>;
   loading: boolean;
   setItems: (arg0: any) => void;
+  setError: (arg0: string) => void;
 }
 
 const FilterBlock: React.FC<FilterBlockProps> = ({
@@ -21,10 +24,10 @@ const FilterBlock: React.FC<FilterBlockProps> = ({
   xAuth,
   post,
   setItems,
+  setError,
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
   const [selectValue, setSelectValue] = useState<string>("product");
-  const [filterApplied, setFilterApplied] = useState<string>("");
 
   function handleFilterButton(
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -33,18 +36,31 @@ const FilterBlock: React.FC<FilterBlockProps> = ({
     const params: BodyParams = {};
 
     if (selectValue === "price") {
-      params[selectValue] = parseInt(inputValue, 10);
+      params[selectValue] = parseInt(inputValue.trim(), 10);
     } else {
-      params[selectValue] = inputValue;
+      params[selectValue] = inputValue.trim();
     }
 
-    post(url, xAuth, "filter", params).then(async (data) => {
-      const items = await post(url, xAuth, "get_items", { ids: data });
-      setItems(items);
-      setFilterApplied(
-        `Применен фильтр ${selectValue} со значением ${inputValue}`
-      );
-    });
+    if (!inputValue) {
+      return;
+    }
+
+    post(url, xAuth, "filter", params)
+      .then(async (data) => {
+        if (data.length === 0) {
+          setError("По вашему запросу ничего не найдено!");
+        } else {
+          setError("");
+          const items = await post(url, xAuth, "get_items", { ids: data });
+          setItems(items);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setError("При выполнении запроса произошла ошибка.");
+      });
+
+    setInputValue("");
   }
 
   return (
@@ -76,7 +92,6 @@ const FilterBlock: React.FC<FilterBlockProps> = ({
             <span>Поиск</span>
           </button>
         </form>
-        {filterApplied && <div>{filterApplied}</div>}
       </div>
     </div>
   );
