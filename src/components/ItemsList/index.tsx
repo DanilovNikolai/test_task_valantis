@@ -1,7 +1,10 @@
+// styles
 import styles from "./ItemsList.module.scss";
+// components
 import Item from "../Item";
-import { ItemProps } from "../../App";
 import Loader from "../Loader";
+// types
+import { ItemProps } from "../../App";
 
 export interface ItemsListProps {
   items: ItemProps[] | null;
@@ -11,7 +14,14 @@ export interface ItemsListProps {
 const ItemsList: React.FC<ItemsListProps> = ({ items, loading }) => {
   return (
     <div className={styles.root}>
-      <h2>Каталог товаров</h2>
+      <div className={styles.title}>
+        <h2>Каталог товаров</h2>
+        {items && (
+          <p>
+            Показано товаров: <b>{items?.length}</b>
+          </p>
+        )}
+      </div>
       {loading ? (
         <div className={styles.loaderContainer}>
           <Loader />
