@@ -8,16 +8,52 @@ body {
   margin: 50px auto;
   border-radius: 10px;
   max-width: 1400px;
-  @media (max-width: 900px){
-      width: 80%;
+  @media (max-width: 900px) {
+    width: 80%;
   }
-  @media (max-width: 700px){
-      width: 90%;
-      margin: 30px auto;
+  @media (max-width: 700px) {
+    width: 90%;
+    margin: 30px auto;
+  }
+  @media (max-width: 500px) {
+    width: 90%;
+    margin: 15px auto;
   }
 }
 
 .content {
   margin: 0 auto;
   padding: 10px 20px;
+}
+
+.error-message {
+  padding: 10px;
+  margin: 200px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @media (max-width: 500px){
+    margin: 100px 40px;
+  }
+
+  .error-title {
+    margin-bottom: 30px;
+    font-size: 24px;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  img {
+    max-width: 50px;
+  }
+
+  a {
+    display: block;
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color: #357dbf;
+    border-radius: 10px;
+    color: #fff;
+  }
 }
