@@ -1,3 +1,4 @@
+// styles
 import styles from "./Pagination.module.scss";
 
 interface PaginationProps {
@@ -5,6 +6,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
   onLoadNextItems: () => void;
   onLoadPrevItems: () => void;
+  error: string;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -12,6 +14,7 @@ const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
   onLoadNextItems,
   onLoadPrevItems,
+  error,
 }) => {
   const loadNextPage = () => {
     onPageChange(currentPage + 1);
@@ -24,13 +27,17 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className={styles.root}>
-      <button onClick={loadPrevPage} disabled={currentPage === 1}>
-        Назад
-      </button>
-      <div className={styles.currentPage}>{currentPage}</div>
-      <button onClick={loadNextPage}>Вперед</button>
-    </div>
+    <>
+      {!error && (
+        <div className={styles.root}>
+          <button onClick={loadPrevPage} disabled={currentPage === 1}>
+            Назад
+          </button>
+          <div className={styles.currentPage}>{currentPage}</div>
+          <button onClick={loadNextPage}>Вперед</button>
+        </div>
+      )}
+    </>
   );
 };
 
